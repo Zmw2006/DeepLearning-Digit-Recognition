@@ -1,4 +1,7 @@
 torch
- torchvision
- matplotlib
- numpy
+torchvision
+matplotlib
+numpy
+scikit-learn
+streamlit
+pillow

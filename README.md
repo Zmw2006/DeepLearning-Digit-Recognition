@@ -1,10 +1,12 @@
 # DeepLearning-Digit-Recognition 🚀
 
-基于 PyTorch CNN 的手写数字识别项目。
+基于 PyTorch CNN 的手写数字识别系统。
 
 ## 项目简介
 
-本项目使用 MNIST 数据集训练卷积神经网络，实现 0-9 手写数字自动分类。
+本项目使用经典 MNIST 数据集，通过卷积神经网络（CNN）完成 0-9 手写数字分类任务。
+
+从数据加载、模型训练、性能评估到单张图片预测，完整实现深度学习图像分类流程。
 
 ## 技术栈
 
@@ -12,16 +14,7 @@
 - PyTorch
 - CNN 卷积神经网络
 - MNIST 数据集
-- Matplotlib 可视化
-
-## 项目功能
-
-- MNIST 数据加载
-- CNN 模型训练
-- 测试集准确率评估
-- 模型保存与加载
-- 单张图片数字预测
-- 训练过程可视化
+- Matplotlib
 
 ## 项目结构
 
@@ -30,15 +23,46 @@ DeepLearning-Digit-Recognition
 │
 ├── README.md
 ├── requirements.txt
-├── train.py
-├── test.py
-├── predict.py
+├── train.py              # 模型训练
+├── test.py               # 模型测试
+├── predict.py            # 图片预测
 │
 ├── model
-│   └── cnn.py
+│   └── cnn.py             # CNN网络结构
 │
-└── utils
-    └── dataset.py
+├── utils
+│   ├── dataset.py         # 数据加载
+│   └── visualization.py  # 结果可视化
+│
+├── weights
+│   └── README.md          # 模型文件说明
+│
+└── results
+    └── README.md          # 实验结果说明
+```
+
+## 模型结构
+
+输入：
+
+```
+28 × 28 灰度图片
+```
+
+网络流程：
+
+```
+Input
+ ↓
+Convolution
+ ↓
+ReLU
+ ↓
+Pooling
+ ↓
+Fully Connected
+ ↓
+10分类输出
 ```
 
 ## 环境安装
@@ -47,33 +71,42 @@ DeepLearning-Digit-Recognition
 pip install -r requirements.txt
 ```
 
-## 运行
+## 使用方法
 
-训练模型：
+训练：
 
 ```bash
 python train.py
 ```
 
-测试模型：
+测试：
 
 ```bash
 python test.py
 ```
 
-预测数字：
+预测：
 
 ```bash
 python predict.py
 ```
 
-## CNN结构
+## 实验结果
 
-输入 28×28 灰度图片，通过卷积层提取图像特征，再经过全连接层输出10分类结果。
+训练完成后将在测试集上达到约 98% 的分类准确率。
 
-## 目标效果
+结果文件包括：
 
-模型训练后测试准确率预计达到 98% 左右。
+- loss变化曲线
+- accuracy变化曲线
+- 数字预测结果
+
+## 后续计划
+
+- [ ] 增加 Web 在线数字识别界面
+- [ ] 添加模型部署接口
+- [ ] 支持用户手写图片上传
+- [ ] 使用更先进网络结构优化准确率
 
 ## License
 

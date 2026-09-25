@@ -7,10 +7,15 @@ from utils.dataset import NORMALIZE
 
 def prepare_image(image):
     image = ImageOps.exif_transpose(image).convert("L")
-    # MNIST 用黑底白字；把常见的白底黑字照片转换成同一方向。
+    # MNIST 是黑底白字；常见白底图片先反色。
     if sum(image.getdata()) / (image.width * image.height) > 127:
         image = ImageOps.invert(image)
     image = ImageOps.autocontrast(image)
+    # 裁去留白，缩放到 20 像素方框并放在 28 像素画布中央。
+    mask = image.point(lambda value: 255 if value > 25 else 0)
+    bounds = mask.getbbox()
+    if bounds:
+        image = image.crop(bounds)
     image.thumbnail((20, 20), Image.Resampling.LANCZOS)
     canvas = Image.new("L", (28, 28))
     canvas.paste(image, ((28 - image.width) // 2, (28 - image.height) // 2))

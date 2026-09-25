@@ -1,21 +1,7 @@
-# DeepLearning Digit Recognition
+# 项目说明
 
-## Introduction
+本项目使用 PyTorch 卷积神经网络对 MNIST 手写数字分类。训练数据中固定划出 5000 张验证图片，用于挑选最佳权重；独立测试集只在训练结束后评估。输入是单通道 28×28 图片，经统一均值和标准差归一化，输出是 0 到 9 的分类分数。
 
-A PyTorch based handwritten digit recognition system using CNN.
+命令行 `predict.py` 与 Streamlit `app.py` 共用 `utils/inference.py` 中的预处理与推理。网页入口是 Streamlit，访问端口为 8501。完整命令见 [使用与部署](README.md)。
 
-## Pipeline
-
-Data preprocessing -> CNN training -> Evaluation -> Prediction -> Web Demo
-
-## Model
-
-CNN with convolution layers, BatchNorm, Dropout and fully connected classifier.
-
-## Features
-
-- MNIST classification
-- GPU training
-- Evaluation metrics
-- Image prediction
-- Web interface
+用户上传的图片与 MNIST 仍可能有分布差异：连笔、多个数字、背景杂乱和过度裁剪都可能导致错误。网页展示的 softmax 置信度没有做概率校准。

@@ -1,11 +1,3 @@
-# Model Weights
+# 模型权重
 
-训练完成后的 PyTorch 模型文件存放目录。
-
-例如：
-
-```
-mnist_cnn.pth
-```
-
-由于模型文件较大，通常不会直接提交到 GitHub，而是通过 Release 或网盘提供下载。
+运行 `python train.py` 后生成 `mnist_cnn_best.pth`。该文件不会提交到仓库；`python test.py`、`python predict.py --image 图片路径` 与 `streamlit run app.py` 都需要它。

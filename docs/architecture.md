@@ -1,25 +1,12 @@
-# System Architecture
+# 数据流
 
-```
-User Image
-    |
-    v
-Image Preprocessing
-    |
-    v
-CNN Model
-    |
-    v
-Prediction Result
+```text
+MNIST 训练集 (60000)
+├── 训练子集 (55000) → 更新 CNN 参数
+└── 验证子集 (5000) → 选择并保存最佳权重
+
+MNIST 测试集 (10000) → 训练完成后独立评估
+用户图片 → 转灰度/按背景反色/裁边/缩放/居中/归一化 → CNN → 数字与置信度
 ```
 
-## Model
-
-The project uses a convolutional neural network for MNIST classification.
-
-Components:
-
-- Data Loader
-- CNN Feature Extractor
-- Fully Connected Classifier
-- Prediction Interface
+模型定义在 `model/cnn.py`，图片推理定义在 `utils/inference.py`。训练和 MNIST 测试共用 `utils/dataset.py` 中的归一化；用户图片使用相同的归一化参数。

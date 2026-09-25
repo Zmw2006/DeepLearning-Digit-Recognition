@@ -1,0 +1,10 @@
+.git
+.venv
+venv
+env
+__pycache__
+*.pyc
+data
+results
+weights/*.pth
+weights/*.pt

@@ -77,6 +77,10 @@ streamlit run app.py
 
 网页所示「置信度」来自 softmax 分数；它没有经过概率校准，不能解释为正确概率。模型仅预测单个数字，不提供文字识别、身份证号识别或多数字分割功能。
 
+## 在 GitHub 上运行完整实验（可选）
+
+如果本机不方便训练，可以打开仓库的 **Actions → Train and evaluate MNIST → Run workflow**，选择训练轮数并启动。该工作流会下载 MNIST，训练模型，在独立测试集上评估，并把权重、训练 CSV 和测试 JSON 打包为 `mnist-model-and-reports` artifact，供你在该次 Actions 页面下载。运行耗时与 GitHub Actions 可用计算资源有关；默认不会在每次提交时自动全量训练。下载后将权重文件放在仓库的 `weights/` 目录即可运行本地预测。只有该工作流真正成功运行后，下载包里的数值才是该次训练的实测结果。
+
 ## 5. Docker 网页部署
 
 先在宿主机按第 1–2 步生成 `weights/mnist_cnn_best.pth`，再运行：

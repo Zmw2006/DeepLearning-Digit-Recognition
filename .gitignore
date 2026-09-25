@@ -1,22 +1,13 @@
-# Python
 __pycache__/
 *.py[cod]
-
-# Virtual environment
+.venv/
 venv/
 env/
-.venv/
-
-# Dataset
 data/
-
-# Model weights
 *.pth
 *.pt
-
-# IDE
 .vscode/
 .idea/
-
-# Results
 results/*.png
+results/*.csv
+results/*.json

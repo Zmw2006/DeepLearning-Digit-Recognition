@@ -1,32 +1,26 @@
+import argparse
 import torch
-import numpy as np
-from torchvision import datasets, transforms
-from torch.utils.data import DataLoader
 from sklearn.metrics import classification_report, confusion_matrix
-from model.cnn import CNN
+from config import BATCH_SIZE
+from utils.dataset import get_data
+from utils.inference import load_model
 
-transform = transforms.Compose([transforms.ToTensor()])
+def main():
+    parser = argparse.ArgumentParser(description="评估独立 MNIST 测试集")
+    parser.add_argument("--batch-size", type=int, default=BATCH_SIZE)
+    args = parser.parse_args()
+    if args.batch_size < 1:
+        parser.error("batch-size 必须大于 0")
+    _, _, loader = get_data(args.batch_size)
+    model = load_model()
+    truth, predicted = [], []
+    with torch.inference_mode():
+        for images, labels in loader:
+            truth.extend(labels.tolist())
+            predicted.extend(model(images).argmax(1).tolist())
+    print(classification_report(truth, predicted, digits=4, zero_division=0))
+    print("混淆矩阵（行是真实标签，列是预测标签）：")
+    print(confusion_matrix(truth, predicted))
 
-test_data = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
-test_loader = DataLoader(test_data, batch_size=64, shuffle=False)
-
-model = CNN()
-model.load_state_dict(torch.load('./weights/mnist_cnn_best.pth', map_location='cpu'))
-model.eval()
-
-true = []
-pred = []
-
-with torch.no_grad():
-    for images, labels in test_loader:
-        outputs = model(images)
-        result = outputs.argmax(1)
-        true.extend(labels.numpy())
-        pred.extend(result.numpy())
-
-acc = np.mean(np.array(true) == np.array(pred))
-
-print('Accuracy:', acc)
-print(classification_report(true, pred))
-print('Confusion Matrix:')
-print(confusion_matrix(true, pred))
+if __name__ == "__main__":
+    main()
